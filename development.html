@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Development - Diriyah</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%); color: white; padding: 60px 0; text-align: center; border-bottom: 5px solid #D2691E; }
+        header h1 { font-size: 3.5em; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        header p { font-size: 1.4em; opacity: 0.9; max-width: 800px; margin: 0 auto; }
+        nav { background: #5D4037; padding: 20px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.2); }
+        nav ul { list-style: none; display: flex; justify-content: center; gap: 50px; }
+        nav a { color: white; text-decoration: none; font-size: 1.2em; font-weight: 600; padding: 12px 25px; border-radius: 30px; transition: all 0.3s ease; border: 2px solid transparent; }
+        nav a:hover, nav a.active { background: #8B4513; transform: translateY(-3px); border-color: #D2691E; }
+        .main-content { background: white; margin: 40px 0; padding: 50px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+        .section { margin-bottom: 60px; }
+        .section h2 { color: #8B4513; border-bottom: 4px solid #D2691E; padding-bottom: 15px; margin-bottom: 30px; font-size: 2.3em; text-align: center; }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 40px 0; }
+        .project-card { background: #f8f9fa; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: transform 0.3s ease; cursor: pointer; }
+        .project-card:hover { transform: translateY(-5px); }
+        .project-card h3 { color: #8B4513; margin-bottom: 15px; font-size: 1.4em; }
+        
+        /* Slider Styles */
+        .slider-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 40px auto;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .slide {
+            min-width: 100%;
+            position: relative;
+        }
+        
+        .slide img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .slide-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(90, 63, 55, 0.9));
+            color: white;
+            padding: 30px;
+        }
+        
+        .slide-content h3 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        
+        .slide-content p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 15px;
+        }
+        
+        .slider-btn {
+            background: #8B4513;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .slider-btn:hover {
+            background: #5D4037;
+            transform: translateY(-2px);
+        }
+        
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+            gap: 10px;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ccc;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .dot.active {
+            background: #8B4513;
+        }
+        
+        .image-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; margin: 40px 0; }
+        .gallery-item { position: relative; overflow: hidden; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); transition: all 0.3s ease; height: 300px; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .image-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(90, 63, 55, 0.9)); color: white; padding: 20px; text-align: center; font-size: 1.1em; font-weight: 600; }
+        footer { background: #5D4037; color: white; text-align: center; padding: 40px 0; margin-top: 60px; }
+        
+        /* Stats Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+            text-align: center;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #5D4037, #6D4C41);
+        }
+        
+        /* Visitor Counter */
+        .visitor-counter {
+            background: #8B4513;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px auto;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: bold;
+            max-width: 300px;
+        }
+        
+        @media (max-width: 768px) { 
+            nav ul { flex-direction: column; gap: 15px; } 
+            header h1 { font-size: 2.5em; } 
+            .main-content { padding: 30px 20px; } 
+            .slide img { height: 300px; }
+            .slide-content { padding: 20px; }
+            .slide-content h3 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Diriyah Gate Development</h1>
+            <p>Transforming History into a Global Cultural Destination Under Vision 2030</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="history.html">History</a></li>
+                <li><a href="heritage.html">Heritage</a></li>
+                <li><a href="development.html" class="active">Development</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="main-content">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h2>Vision 2030: Diriyah Gate Project</h2>
+                <p>The Diriyah Gate Development Authority (DGDA) is executing one of the world's most ambitious cultural regeneration projects, transforming the historical area into a global tourism and lifestyle destination while preserving its authentic heritage and architectural integrity.</p>
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="#projects" class="btn">Explore Projects</a>
+                    <a href="#slider" class="btn btn-secondary">View Progress</a>
+                </div>
+            </section>
+
+            <!-- Development Stats -->
+            <section class="section">
+                <h2>Development Milestones</h2>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number">7km²</div>
+                        <div class="stat-label">Development Area</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50B&#65020;+</div>
+                        <div class="stat-label">Total Investment</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">27M</div>
+                        <div class="stat-label">Annual Visitors Expected</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">55K</div>
+                        <div class="stat-label">Jobs Created</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slider Section -->
+            <section class="section" id="slider">
+                <h2>Development Progress</h2>
+                <div class="slider-container">
+                  <div class="slider">
+    <div class="slide">
+        <img src="https://i.ibb.co/bRQ57Mdj/8.jpg" alt="Bujairi Terrace Development">
+        <div class="slide-content">
+            <h3>Bujairi Terrace</h3>
+            <p>A premium dining destination overlooking the historic At-Turaif district, featuring world-class restaurants and cafes</p>
+        </div>
+    </div>
+    <div class="slide">
+        <img src="https://i.ibb.co/PG96wNGJ/11.jpg" alt="Cultural District">
+        <div class="slide-content">
+            <h3>Cultural District</h3>
+            <p>Museums, galleries, and cultural centers showcasing Saudi heritage and contemporary art in authentic settings</p>
+        </div>
+    </div>
+    <div class="slide">
+        <img src="https://i.ibb.co/YTKf43qM/5.jpg" alt="Hospitality Zone">
+        <div class="slide-content">
+            <h3>Hospitality Zone</h3>
+            <p>Luxury hotels and resorts designed with traditional Najdi architecture and modern amenities</p>
+        </div>
+    </div>
+    <div class="slide">
+        <img src="https://i.ibb.co/DHnmCvt3/4.webp" alt="Retail District">
+        <div class="slide-content">
+            <h3>Retail & Dining</h3>
+            <p>World-class shopping and dining experiences blending traditional settings with contemporary luxury</p>
+        </div>
+    </div>
+</div>
+                    <div class="slider-controls">
+                        <button class="slider-btn prev-btn">Previous</button>
+                        <button class="slider-btn next-btn">Next</button>
+                    </div>
+                    <div class="slider-dots">
+                        <span class="dot active" data-slide="0"></span>
+                        <span class="dot" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                        <span class="dot" data-slide="3"></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section class="section" id="projects">
+                <h2>Key Development Projects</h2>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3>Cultural District</h3>
+                        <p>Museums, galleries, and cultural centers showcasing Saudi heritage and contemporary art</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>Hospitality Zone</h3>
+                        <p>Luxury hotels, resorts, and boutique accommodations with traditional Najdi design</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>Retail & Dining</h3>
+                        <p>World-class shopping and dining experiences in authentic traditional settings</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Sustainable Development</h2>
+                <p>The development prioritizes environmental sustainability, cultural preservation, and community engagement, ensuring that growth benefits both visitors and local residents while maintaining the site's historical authenticity.</p>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3>Green Building</h3>
+                        <p>Eco-friendly construction using traditional techniques and modern sustainability standards</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>Community Programs</h3>
+                        <p>Initiatives to involve local communities in preservation and tourism activities</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>Cultural Preservation</h3>
+                        <p>Restoration of historical sites using authentic materials and traditional methods</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gallery Section -->
+            <section class="section">
+                <h2>Development Highlights</h2>
+                
+                <div class="image-gallery">
+    <div class="gallery-item">
+        <img src="https://i.ibb.co/bRQ57Mdj/8.jpg" alt="Bujairi Terrace">
+        <div class="image-caption">Bujairi Terrace Dining Destination</div>
+    </div>
+    <div class="gallery-item">
+        <img src="https://i.ibb.co/PG96wNGJ/11.jpg" alt="Modern Development">
+        <div class="image-caption">Contemporary Architectural Integration</div>
+    </div>
+</div>
+            </section>
+
+            <!-- Quick Links Section -->
+            <section class="section">
+                <h2>Continue Your Journey</h2>
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="history.html" class="btn">Historical Timeline</a>
+                    <a href="heritage.html" class="btn btn-secondary">Cultural Heritage</a>
+                    <a href="gallery.html" class="btn">Photo Gallery</a>
+                    <a href="contact.html" class="btn btn-secondary">Contact Us</a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h3>Building the Future, Preserving the Past</h3>
+                <p>Diriyah - Where Ancient Heritage Meets Modern Development</p>
+                <p>© 2024 Diriyah Cultural Project | King Saud University</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize slider
+            const slider = document.querySelector('.slider');
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+            
+            // Function to update slider position
+            function updateSlider() {
+                slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+                
+                // Update active dot
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentSlide);
+                });
+            }
+            
+            // Next slide function
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateSlider();
+            }
+            
+            // Previous slide function
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                updateSlider();
+            }
+            
+            // Event listeners for buttons
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+            
+            // Event listeners for dots
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    currentSlide = index;
+                    updateSlider();
+                });
+            });
+            
+            // Auto-advance slides every 5 seconds
+            setInterval(nextSlide, 5000);
+            
+            // Card interactions
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const title = this.querySelector('h3').textContent;
+                    const desc = this.querySelector('p').textContent;
+                    alert(`${title}\n\n${desc}`);
+                });
+            });
+            
+            // Gallery interactions
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const caption = this.querySelector('.image-caption').textContent;
+                    alert(`Development Highlight: ${caption}`);
+                });
+            });
+            
+            // Visitor counter
+            let visitors = localStorage.getItem('developmentVisitors') || 0;
+            visitors = parseInt(visitors) + 1;
+            localStorage.setItem('developmentVisitors', visitors);
+            
+            const counter = document.createElement('div');
+            counter.className = 'visitor-counter';
+            counter.textContent = 'Development Page Visitors: ' + visitors;
+            document.querySelector('.footer-content').parentNode.insertBefore(counter, document.querySelector('.footer-content'));
+        });
+    </script>
+</body>
+</html>

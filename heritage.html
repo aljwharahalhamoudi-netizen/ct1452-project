@@ -1,0 +1,594 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heritage - Diriyah</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            border-bottom: 5px solid #D2691E;
+        }
+
+        header h1 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.4em;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Navigation */
+        nav {
+            background: #5D4037;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: 600;
+            padding: 12px 25px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        nav a:hover, nav a.active {
+            background: #8B4513;
+            transform: translateY(-3px);
+            border-color: #D2691E;
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            margin: 40px 0;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section h2 {
+            color: #8B4513;
+            border-bottom: 4px solid #D2691E;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 2.3em;
+            text-align: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .hero h2 {
+            font-size: 2.8em;
+            color: #5D4037;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            color: #666;
+            max-width: 900px;
+            margin: 0 auto 30px;
+        }
+
+        /* Timeline Section */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+
+        .timeline-item {
+            background: white;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #8B4513;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+        }
+
+        .timeline-year {
+            font-weight: bold;
+            color: #8B4513;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            height: 300px;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(90, 63, 55, 0.9));
+            color: white;
+            padding: 25px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        /* Stats Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+            text-align: center;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: #5D4037;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-content h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        /* Visitor Counter */
+        .visitor-counter {
+            background: #8B4513;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px auto;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: bold;
+            max-width: 300px;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #5D4037, #6D4C41);
+        }
+
+        /* Heritage Cards */
+        .heritage-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .heritage-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-top: 5px solid #8B4513;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .heritage-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .heritage-card h3 {
+            color: #8B4513;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .heritage-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            header h1 {
+                font-size: 2.5em;
+            }
+            
+            .main-content {
+                padding: 30px 20px;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .heritage-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h2 {
+                font-size: 2em;
+            }
+            
+            .section h2 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <h1>Cultural Heritage of Diriyah</h1>
+            <p>Preserving Najdi Architecture and Saudi Traditions - Explore the Living Legacy of the First Saudi State</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="history.html">History</a></li>
+                <li><a href="heritage.html" class="active">Heritage</a></li>
+                <li><a href="development.html">Development</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h2>Discover Diriyah's Cultural Heritage</h2>
+                <p>Walk through centuries of architectural marvels and cultural traditions that shaped the identity of Saudi Arabia. From the distinctive Najdi mud-brick structures to the vibrant folk arts, Diriyah's heritage is a living testament to Saudi resilience and creativity.</p>
+                <a href="#architecture" class="btn">Explore Architecture</a>
+                <a href="gallery.html" class="btn btn-secondary">Cultural Photos</a>
+            </section>
+
+            <!-- Quick Facts Section -->
+            <section class="section">
+                <h2>Heritage Highlights</h2>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number">UNESCO</div>
+                        <div class="stat-label">World Heritage Site</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">600+</div>
+                        <div class="stat-label">Traditional Buildings</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">7</div>
+                        <div class="stat-label">Palaces Restored</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">2010</div>
+                        <div class="stat-label">UNESCO Year</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Architecture Section -->
+            <section class="section" id="architecture">
+                <h2>Najdi Architecture</h2>
+                <div class="heritage-cards">
+                    <div class="heritage-card">
+                        <h3>Mud-Brick Construction</h3>
+                        <p>Traditional eco-friendly construction using clay and straw that provides natural insulation against extreme desert temperatures</p>
+                    </div>
+                    <div class="heritage-card">
+                        <h3>Strategic Ventilation</h3>
+                        <p>Innovative architectural design for optimal air circulation and natural cooling in the harsh desert climate</p>
+                    </div>
+                    <div class="heritage-card">
+                        <h3>Ornamental Details</h3>
+                        <p>Intricate geometric Islamic patterns and traditional Najdi decorative elements showcasing local craftsmanship</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- UNESCO Section -->
+            <section class="section">
+                <h2>UNESCO World Heritage</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">At-Turaif District</div>
+                        <p>The historic district of At-Turaif was designated as a UNESCO World Heritage Site in 2010, recognized for its outstanding universal value as the first capital of the Saudi dynasty</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">Architectural Significance</div>
+                        <p>Showcases the Najdi architectural style, characterized by mud-brick construction, decorative elements, and innovative adaptation to desert environment</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">Cultural Importance</div>
+                        <p>Represents a crucial stage in human history and embodies the cultural traditions of central Arabia through its urban and architectural ensemble</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cultural Traditions Section -->
+            <section class="section">
+                <h2>Cultural Traditions</h2>
+                <div class="heritage-cards">
+                    <div class="heritage-card">
+                        <h3>Traditional Crafts</h3>
+                        <p>Ancient pottery, weaving, woodworking, and metalworking techniques passed down through generations of Saudi artisans</p>
+                    </div>
+                    <div class="heritage-card">
+                        <h3>Folk Arts</h3>
+                        <p>Ardah dance, traditional music, poetry, and storytelling that celebrate and preserve Saudi cultural heritage</p>
+                    </div>
+                    <div class="heritage-card">
+                        <h3>Culinary Heritage</h3>
+                        <p>Authentic Saudi cuisine and traditional cooking methods preserved for centuries in Diriyah's households</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Heritage Images Section -->
+            <section class="section">
+                <h2>Heritage Landmarks</h2>
+                <div class="image-gallery">
+    <div class="gallery-item">
+        <img src="https://i.ibb.co/bRQ57Mdj/8.jpg" alt="Bujairi Terrace">
+        <div class="image-caption">Bujairi Terrace</div>
+    </div>
+    <div class="gallery-item">
+        <img src="https://i.ibb.co/DHnmCvt3/4.webp" alt="Traditional Architecture">
+        <div class="image-caption">Traditional Najdi Mud-brick Architecture</div>
+    </div>
+    <div class="gallery-item">
+        <img src="https://i.ibb.co/PG96wNGJ/11.jpg" alt="Sibalat Moudhi">
+        <div class="image-caption">Sibalat Moudhi</div>
+    </div>
+    <div class="gallery-item">
+        <img src="https://i.ibb.co/YTKf43qM/5.jpg" alt="Wadi Hanifah">
+        <div class="image-caption">Wadi Hanifah</div>
+    </div>
+</div>
+            </section>
+
+            <!-- Quick Links Section -->
+            <section class="section">
+                <h2>Continue Your Journey</h2>
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="history.html" class="btn">Historical Timeline</a>
+                    <a href="development.html" class="btn btn-secondary">Modern Development</a>
+                    <a href="gallery.html" class="btn">Photo Gallery</a>
+                    <a href="contact.html" class="btn btn-secondary">Contact Us</a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h3>Preserving Cultural Heritage</h3>
+                <p>Diriyah - Where Ancient Traditions Meet Modern Preservation</p>
+                <p>© 2024 Diriyah Cultural Project | King Saud University</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Heritage page loaded successfully');
+            initHeritagePage();
+        });
+
+        function initHeritagePage() {
+            addTimelineInteractions();
+            addGalleryInteractions();
+            addCardInteractions();
+            updateVisitorCount();
+        }
+
+        function addTimelineInteractions() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            timelineItems.forEach((item, index) => {
+                item.addEventListener('click', function() {
+                    const year = this.querySelector('.timeline-year').textContent;
+                    const description = this.querySelector('p').textContent;
+                    alert(`Heritage Feature: ${year}\n\n${description}`);
+                });
+            });
+        }
+
+        function addGalleryInteractions() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            galleryItems.forEach((item, index) => {
+                item.addEventListener('click', function() {
+                    const caption = this.querySelector('.image-caption').textContent;
+                    alert(`Heritage Landmark: ${caption}`);
+                });
+            });
+        }
+
+        function addCardInteractions() {
+            const heritageCards = document.querySelectorAll('.heritage-card');
+            
+            heritageCards.forEach((card, index) => {
+                card.addEventListener('click', function() {
+                    const title = this.querySelector('h3').textContent;
+                    const description = this.querySelector('p').textContent;
+                    alert(`${title}\n\n${description}`);
+                });
+            });
+        }
+
+        function updateVisitorCount() {
+            let heritageVisitors = localStorage.getItem('heritageVisitors') || 0;
+            heritageVisitors = parseInt(heritageVisitors) + 1;
+            localStorage.setItem('heritageVisitors', heritageVisitors);
+            
+            const visitorElement = document.createElement('div');
+            visitorElement.className = 'visitor-counter';
+            visitorElement.textContent = `Heritage Page Visitors: ${heritageVisitors}`;
+            
+            const footerContent = document.querySelector('.footer-content');
+            footerContent.parentNode.insertBefore(visitorElement, footerContent);
+        }
+
+        function searchHeritage() {
+            const searchTerm = prompt('Enter heritage topic to search:');
+            if (searchTerm) {
+                alert(`Searching for: ${searchTerm}\nThis feature is under development...`);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic page settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diriyah - Home</title>
+    <style>
+        /* General page settings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            direction: ltr;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header styling with background image */
+        header {
+            background: 
+                linear-gradient(rgba(139, 69, 19, 0.7), rgba(160, 82, 45, 0.7)),
+                url('https://i.ibb.co/Y77hpLN1/1.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            border-bottom: 5px solid #D2691E;
+            position: relative;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-content {
+            max-width: 800px;
+            padding: 40px;
+            background: rgba(93, 64, 55, 0.8);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(210, 105, 30, 0.5);
+        }
+
+        header h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.6em;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            line-height: 1.5;
+        }
+
+        /* Navigation bar styling */
+        nav {
+            background: #5D4037;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: 600;
+            padding: 12px 25px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        nav a:hover, nav a.active {
+            background: #8B4513;
+            transform: translateY(-3px);
+            border-color: #D2691E;
+        }
+
+        /* Main content styling */
+        .main-content {
+            background: white;
+            margin: 40px 0;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section h2 {
+            color: #8B4513;
+            border-bottom: 4px solid #D2691E;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 2.3em;
+            text-align: center;
+        }
+
+        /* Hero section styling */
+        .hero {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .hero h2 {
+            font-size: 2.8em;
+            color: #5D4037;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            color: #666;
+            max-width: 900px;
+            margin: 0 auto 30px;
+        }
+
+        /* Image gallery styling */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            height: 300px;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(90, 63, 55, 0.9));
+            color: white;
+            padding: 25px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        /* Statistics section styling */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+            text-align: center;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        /* Footer styling */
+        footer {
+            background: #5D4037;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-content h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        /* Visitor counter styling */
+        .visitor-counter {
+            background: #8B4513;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px auto;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: bold;
+            max-width: 300px;
+        }
+
+        /* Contact form styling */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            background: #f9f9f9;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #5D4037;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #8B4513;
+        }
+
+        /* إصلاح مشكلة textarea - منع تغيير الحجم */
+        .form-group textarea {
+            resize: none; /* هذه الخاصية تمنع تغيير الحجم */
+            height: 150px; /* ارتفاع ثابت */
+        }
+
+        /* Button styling */
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #5D4037, #6D4C41);
+        }
+
+        /* Success message styling */
+        .success-message {
+            display: none;
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* Mobile responsive design */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            header {
+                padding: 60px 0;
+                min-height: 50vh;
+            }
+            
+            .header-content {
+                padding: 30px 20px;
+            }
+            
+            header h1 {
+                font-size: 2.8em;
+            }
+            
+            header p {
+                font-size: 1.3em;
+            }
+            
+            .main-content {
+                padding: 30px 20px;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h2 {
+                font-size: 2em;
+            }
+            
+            .section h2 {
+                font-size: 1.8em;
+            }
+            
+            header h1 {
+                font-size: 2.2em;
+            }
+            
+            header p {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top page header with background image -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>Welcome to Diriyah</h1>
+                <p>The Birthplace of the First Saudi State & A UNESCO World Heritage Site - Where History Meets Vision 2030</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation bar between pages -->
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="history.html">History</a></li>
+                <li><a href="heritage.html">Heritage</a></li>
+                <li><a href="development.html">Development</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main page content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Main introduction section -->
+            <section class="hero">
+                <h2>Discover the Cradle of Saudi Civilization</h2>
+                <p>Diriyah represents more than 600 years of rich history, cultural heritage, and architectural marvels. From its founding in the 15th century to its current transformation under Vision 2030, Diriyah continues to captivate visitors from around the world.</p>
+                <a href="history.html" class="btn">Explore Our History</a>
+                <a href="gallery.html" class="btn btn-secondary">View Gallery</a>
+            </section>
+
+            <!-- Quick statistics section -->
+            <section class="section">
+                <h2>Diriyah at a Glance</h2>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number">1446</div>
+                        <div class="stat-label">Year Founded</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">600+</div>
+                        <div class="stat-label">Years of History</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">UNESCO</div>
+                        <div class="stat-label">World Heritage Site</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50B&#65020;+</div>
+                        <div class="stat-label">Development Projects</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Image gallery section --> 
+            <section class="section">
+                <h2>Explore Diriyah's Wonders</h2>
+                <div class="image-gallery">
+                    <div class="gallery-item">
+                        <img src="https://i.ibb.co/YTKf43qM/5.jpg" alt="At-Turaif District">
+                        <div class="image-caption">At-Turaif UNESCO World Heritage Site</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://i.ibb.co/DHnmCvt3/4.webp" alt="Traditional Architecture">
+                        <div class="image-caption">Traditional Najdi Mud-brick Architecture</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://i.ibb.co/bRQ57Mdj/8.jpg" alt="Bujairi Terrace">
+                        <div class="image-caption">Bujairi Terrace Dining Destination</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact form section -->
+            <section class="section">
+                <h2>Contact Us</h2>
+                <form id="contactForm" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Full Name:</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address:</label>
+                        <input type="email" id="email" name="email" required placeholder="example@email.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required placeholder="Type your message here..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+                <div id="successMessage" class="success-message">
+                    Thank you! Your message has been sent successfully.
+                </div>
+            </section>
+
+            <!-- Quick links section -->
+            <section class="section">
+                <h2>Discover More About Diriyah</h2>
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="history.html" class="btn">Historical Timeline</a>
+                    <a href="heritage.html" class="btn btn-secondary">Cultural Heritage</a>
+                    <a href="development.html" class="btn">Modern Development</a>
+                    <a href="gallery.html" class="btn btn-secondary">Photo Gallery</a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Bottom page footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h3>Experience the Living Legacy</h3>
+                <p>Diriyah - Where the past inspires the future</p>
+                <p>© 2024 Diriyah Cultural Project | King Saud University</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript code for interactive functions -->
+    <script>
+        // This code runs when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Diriyah homepage loaded successfully');
+            initPage();
+        });
+
+        // Initialize all page functions
+        function initPage() {
+            addGalleryInteractions();
+            updateVisitorCount();
+            setupFormValidation();
+        }
+
+        // Add click interactions for images
+        function addGalleryInteractions() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            galleryItems.forEach((item, index) => {
+                item.addEventListener('click', function() {
+                    alert(`Clicked on image ${index + 1}: ${this.querySelector('.image-caption').textContent}`);
+                });
+            });
+        }
+
+        // Update visitor count
+        function updateVisitorCount() {
+            let visitors = localStorage.getItem('diriyahVisitors') || 0;
+            visitors = parseInt(visitors) + 1;
+            localStorage.setItem('diriyahVisitors', visitors);
+            
+            // Display visitor count in footer
+            const visitorElement = document.createElement('div');
+            visitorElement.className = 'visitor-counter';
+            visitorElement.id = 'visitorCounter';
+            visitorElement.textContent = `Visitors: ${visitors}`;
+            
+            const footerContent = document.querySelector('.footer-content');
+            footerContent.parentNode.insertBefore(visitorElement, footerContent);
+        }
+
+        // Setup form validation
+        function setupFormValidation() {
+            const contactForm = document.getElementById('contactForm');
+            const successMessage = document.getElementById('successMessage');
+            
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    if (validateContactForm()) {
+                        // Show success message
+                        successMessage.style.display = 'block';
+                        
+                        // Hide success message after 5 seconds
+                        setTimeout(function() {
+                            successMessage.style.display = 'none';
+                        }, 5000);
+                        
+                        // Reset form
+                        this.reset();
+                    }
+                });
+            }
+        }
+
+        // Validate form data
+        function validateContactForm() {
+            const email = document.getElementById('email').value;
+            const name = document.getElementById('name').value;
+            const message = document.getElementById('message').value;
+            
+            if (name.length < 3) {
+                alert('Name must be at least 3 characters');
+                return false;
+            }
+            
+            if (email.indexOf('@') === -1 || email.indexOf('.') === -1) {
+                alert('Please enter a valid email address');
+                return false;
+            }
+            
+            if (message.length < 10) {
+                alert('Message must be at least 10 characters');
+                return false;
+            }
+            
+            return true;
+        }
+
+        // Function for site search
+        function searchSite() {
+            const searchTerm = prompt('Enter search term:');
+            if (searchTerm) {
+                alert(`Searching for: ${searchTerm}\nThis feature is under development...`);
+            }
+        }
+    </script>
+</body>
+</html>

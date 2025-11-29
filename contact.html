@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Diriyah Project</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%); color: white; padding: 60px 0; text-align: center; border-bottom: 5px solid #D2691E; }
+        header h1 { font-size: 3.5em; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        header p { font-size: 1.4em; opacity: 0.9; max-width: 800px; margin: 0 auto; }
+        nav { background: #5D4037; padding: 20px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.2); }
+        nav ul { list-style: none; display: flex; justify-content: center; gap: 50px; }
+        nav a { color: white; text-decoration: none; font-size: 1.2em; font-weight: 600; padding: 12px 25px; border-radius: 30px; transition: all 0.3s ease; border: 2px solid transparent; }
+        nav a:hover, nav a.active { background: #8B4513; transform: translateY(-3px); border-color: #D2691E; }
+        .main-content { background: white; margin: 40px 0; padding: 50px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin: 40px 0; }
+        .contact-info { background: #f8f9fa; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .contact-info h3 { color: #8B4513; margin-bottom: 20px; font-size: 1.5em; }
+        .contact-form { background: #f8f9fa; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: #5D4037; }
+        .form-group input, .form-group textarea { 
+            width: 100%; 
+            padding: 12px; 
+            border: 2px solid #ddd; 
+            border-radius: 8px; 
+            font-size: 1em; 
+            transition: border-color 0.3s ease; 
+            font-family: inherit;
+        }
+        .form-group input:focus, .form-group textarea:focus { 
+            outline: none; 
+            border-color: #8B4513; 
+        }
+        /* إزالة خاصية تغيير الحجم تماماً */
+        .form-group textarea { 
+            resize: none; /* لا يسمح بتغيير الحجم */
+            height: 150px; /* ارتفاع ثابت */
+        }
+        .btn { 
+            background: linear-gradient(135deg, #8B4513, #A0522D); 
+            color: white; 
+            padding: 15px 30px; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 1.1em; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            width: 100%;
+        }
+        .btn:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+        }
+        
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        /* Slider Styles */
+        .slider-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 40px auto;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .slide {
+            min-width: 100%;
+            position: relative;
+            background: #f8f9fa;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .slide h3 {
+            color: #8B4513;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        
+        .slide p {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: #555;
+        }
+        
+        .slide-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 15px;
+        }
+        
+        .slider-btn {
+            background: #8B4513;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .slider-btn:hover {
+            background: #5D4037;
+            transform: translateY(-2px);
+        }
+        
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+            gap: 10px;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ccc;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .dot.active {
+            background: #8B4513;
+        }
+        
+        /* Team Section */
+        .team-section {
+            margin-top: 60px;
+            text-align: center;
+        }
+        
+        .team-section h2 {
+            color: #8B4513;
+            border-bottom: 4px solid #D2691E;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 2.3em;
+            text-align: center;
+        }
+        
+        /* Visitor Counter */
+        .visitor-counter {
+            background: #8B4513;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px auto;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: bold;
+            max-width: 300px;
+        }
+        
+        footer { 
+            background: #5D4037; 
+            color: white; 
+            text-align: center; 
+            padding: 40px 0; 
+            margin-top: 60px; 
+        }
+        
+        @media (max-width: 768px) { 
+            nav ul { flex-direction: column; gap: 15px; } 
+            header h1 { font-size: 2.5em; } 
+            .main-content { padding: 30px 20px; } 
+            .slide { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Contact Us</h1>
+            <p>Get in Touch with the Diriyah Cultural Project Team</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="history.html">History</a></li>
+                <li><a href="heritage.html">Heritage</a></li>
+                <li><a href="development.html">Development</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="main-content">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Project Information</h3>
+                    <p><strong>Address:</strong> Diriyah Historical Site, Riyadh, Saudi Arabia</p>
+                    <p><strong>Email:</strong> 445927603@student.ksu.edu.sa</p>
+                    <p><strong>Phone:</strong> +966 55 752 0115</p>
+                    <p><strong>University:</strong> King Saud University</p>
+                    <p><strong>Department:</strong> College of Applied Studies & Community Services</p>
+                    <p><strong>The development team:</strong> Aljawharah Alhamoudi & Danah AlOtaibi & Shumokh Alotibi </p>
+                </div>
+
+                <div class="contact-form">
+                    <h3>Send us a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="Type your message here..."></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                    <div id="successMessage" class="success-message">
+                        Thank you! Your message has been sent successfully.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Information Slider -->
+            <div class="slider-container">
+                <div class="slider">
+                    <div class="slide">
+                        <div class="slide-content">
+                            <h3>About the Project</h3>
+                            <p>This website was developed as part of the CT1452 course project at King Saud University, showcasing the rich heritage and modern development of Diriyah as part of Saudi Vision 2030.</p>
+                            <p><strong>Course:</strong> CT1452 - Internet Applications</p>
+                            <p><strong>Instructor:</strong> Dr. Monerah Alawadh</p>
+                            <p><strong>Semester:</strong> 1447 (1)</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="slide-content">
+                            <h3>Project Objectives</h3>
+                            <p>Our mission is to digitally preserve and promote the cultural heritage of Diriyah while highlighting its ongoing development as a global cultural destination.</p>
+                            <p><strong>Key Goals:</strong></p>
+                            <p>• Document historical and cultural significance</p>
+                            <p>• Showcase development progress</p>
+                            <p>• Provide educational resources</p>
+                            <p>• Enhance visitor experience through digital means</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="slide-content">
+                            <h3>Technical Implementation</h3>
+                            <p>This website was built using modern web technologies to ensure optimal performance and user experience across all devices.</p>
+                            <p><strong>Technologies Used:</strong></p>
+                            <p> HTML5, CSS3, JavaScript</p>
+                            
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="slide-content">
+                            <h3>Future Enhancements</h3>
+                            <p>We plan to continuously improve this platform with additional features and content to better serve our audience.</p>
+                            <p><strong>Planned Features:</strong></p>
+                            <p>• Virtual tours of historical sites</p>
+                            <p>• Interactive timelines</p>
+                            <p>• Multilingual support</p>
+                            <p>• Enhanced gallery with 360° views</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-btn prev-btn">Previous</button>
+                    <button class="slider-btn next-btn">Next</button>
+                </div>
+                <div class="slider-dots">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
+                    <span class="dot" data-slide="3"></span>
+                </div>
+            </div>
+
+            <!-- Team Section -->
+            <div class="team-section">
+                <h2>Project Team</h2>
+                <div class="contact-info">
+                    <p>This project was developed by students from King Saud University as part of their coursework in Internet Applications. The team worked collaboratively to research, design, and implement this comprehensive website about Diriyah's heritage and development.</p>
+                    <p><strong>Team Members:</strong> [Aljawharah Alhamoudi & Danah AlOtaibi & Shumokh Alotibi]</p>
+                    <p><strong>Supervised by:</strong> Dr. Monerah Alawadh</p>
+                    <p><strong>Academic Year:</strong> 1447H</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h3>Connect With Us</h3>
+                <p>We welcome your feedback and inquiries about the Diriyah Cultural Project</p>
+                <p>© 2024 Diriyah Cultural Project | King Saud University</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize slider
+            const slider = document.querySelector('.slider');
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            const successMessage = document.getElementById('successMessage');
+            
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+            
+            // Function to update slider position
+            function updateSlider() {
+                slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+                
+                // Update active dot
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentSlide);
+                });
+            }
+            
+            // Next slide function
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateSlider();
+            }
+            
+            // Previous slide function
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                updateSlider();
+            }
+            
+            // Event listeners for buttons
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+            
+            // Event listeners for dots
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    currentSlide = index;
+                    updateSlider();
+                });
+            });
+            
+            // Auto-advance slides every 7 seconds
+            setInterval(nextSlide, 7000);
+            
+            // Contact form submission
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+                
+                // Simple validation
+                if (name && email && subject && message) {
+                    // Show success message
+                    successMessage.style.display = 'block';
+                    
+                    // Hide success message after 5 seconds
+                    setTimeout(function() {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                    
+                    // Reset form
+                    document.getElementById('contactForm').reset();
+                } else {
+                    alert('Please fill in all fields before submitting.');
+                }
+            });
+            
+            // Visitor counter
+            let visitors = localStorage.getItem('contactVisitors') || 0;
+            visitors = parseInt(visitors) + 1;
+            localStorage.setItem('contactVisitors', visitors);
+            
+            const counter = document.createElement('div');
+            counter.className = 'visitor-counter';
+            counter.textContent = 'Contact Page Visitors: ' + visitors;
+            document.querySelector('.footer-content').parentNode.insertBefore(counter, document.querySelector('.footer-content'));
+        });
+    </script>
+</body>
+</html>
