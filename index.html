@@ -31,7 +31,7 @@
         header {
             background: 
                 linear-gradient(rgba(139, 69, 19, 0.7), rgba(160, 82, 45, 0.7)),
-                url('https://i.ibb.co/B2Ht0Kpb/1.jpg');
+                url('https://uploads.onecompiler.io/43g3dgaeu/445zuwnpy/%D8%AF%D8%B1%D8%B9%D9%8A%D9%871.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -458,15 +458,15 @@
                 <h2>Explore Diriyah's Wonders</h2>
                 <div class="image-gallery">
                     <div class="gallery-item">
-                        <img src="https://i.ibb.co/1tFsvyzY/1.jpg" alt="At-Turaif District">
+                        <img src="https://uploads.onecompiler.io/43g3dgaeu/445zuwnpy/%D8%B7%D8%B1%D9%8A%D9%81.jpg" alt="At-Turaif District">
                         <div class="image-caption">At-Turaif UNESCO World Heritage Site</div>
                     </div>
                     <div class="gallery-item">
-                        <img src="https://i.ibb.co/k6B5h1Fk/2.webp" alt="Traditional Architecture">
+                        <img src="https://uploads.onecompiler.io/43g3dgaeu/445zuwnpy/%D8%B9%D9%85%D8%A7%D8%B1%D9%87%20%D8%B7%D9%88%D8%A8.webp" alt="Traditional Architecture">
                         <div class="image-caption">Traditional Najdi Mud-brick Architecture</div>
                     </div>
                     <div class="gallery-item">
-                        <img src="https://i.ibb.co/twcyyLyV/4.jpg" alt="Bujairi Terrace">
+                        <img src="https://uploads.onecompiler.io/43g3dgaeu/445zuwnpy/fb-Bujairi-Terrace.jpg" alt="Bujairi Terrace">
                         <div class="image-caption">Bujairi Terrace Dining Destination</div>
                     </div>
                 </div>
@@ -510,7 +510,23 @@
             </section>
         </div>
     </div>
+    <!-- Firebase Add Place Section (NEW - not modifying design) -->
+<div class="main-content">
+    <section class="section">
+        <h2>Add New Place</h2>
 
+        <input type="text" id="placeName" placeholder="Place Name">
+        <br><br>
+
+        <textarea id="placeDesc" placeholder="Place Description"></textarea>
+        <br><br>
+
+        <button onclick="addPlace()" class="btn">Add Place</button>
+
+        <h2>Places List</h2>
+        <div id="placesList"></div>
+    </section>
+</div>
     <!-- Bottom page footer -->
     <footer>
         <div class="container">
@@ -619,6 +635,151 @@
                 alert(`Searching for: ${searchTerm}\nThis feature is under development...`);
             }
         }
+      
     </script>
+  <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { 
+  getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc 
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAaoMGWmiZ6hvgfu12OWtUnFpvxP3nwz0o",
+  authDomain: "driiyahproject.firebaseapp.com",
+  projectId: "driiyahproject",
+  storageBucket: "driiyahproject.firebasestorage.app",
+  messagingSenderId: "181576802521",
+  appId: "1:181576802521:web:ab5da2c29be9595db65ec8",
+  measurementId: "G-CWFBTXFJ04"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+let currentEditId = null;
+
+// ➕ Add
+window.addPlace = async function () {
+  const name = document.getElementById("placeName").value;
+  const desc = document.getElementById("placeDesc").value;
+
+  if (!name || !desc) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  await addDoc(collection(db, "places"), {
+    name,
+    description: desc
+  });
+
+  document.getElementById("placeName").value = "";
+  document.getElementById("placeDesc").value = "";
+
+  loadPlaces();
+};
+
+// 📥 Load
+window.loadPlaces = async function () {
+  const querySnapshot = await getDocs(collection(db, "places"));
+  let html = "";
+
+  querySnapshot.forEach((docSnap) => {
+    const data = docSnap.data();
+
+    html += `
+      <div style="background:#f5f5f5; padding:15px; margin:10px; border-radius:10px; box-shadow:0 3px 10px rgba(0,0,0,0.1);">
+        <h3 style="color:#8B4513;">${data.name}</h3>
+        <p>${data.description}</p>
+
+        <button onclick="openEditModal('${docSnap.id}', \`${data.name}\`, \`${data.description}\`)"
+        style="margin-top:10px; margin-right:10px; background:#5D4037; color:white; border:none; padding:8px 15px; border-radius:8px; cursor:pointer;">
+          Edit
+        </button>
+
+        <button onclick="deletePlace('${docSnap.id}')" 
+        style="margin-top:10px; background:#8B4513; color:white; border:none; padding:8px 15px; border-radius:8px; cursor:pointer;">
+          Delete
+        </button>
+      </div>
+    `;
+  });
+
+  document.getElementById("placesList").innerHTML = html;
+};
+
+// ❌ Delete
+window.deletePlace = async function (id) {
+  await deleteDoc(doc(db, "places", id));
+  loadPlaces();
+};
+
+// 🔥 فتح نافذة التعديل
+window.openEditModal = function(id, name, description) {
+  document.getElementById("editModal").style.display = "flex";
+
+  document.getElementById("editName").value = name;
+  document.getElementById("editDesc").value = description;
+
+  document.getElementById("editSuccess").style.display = "none";
+
+  currentEditId = id;
+};
+
+// ❌ إغلاق
+window.closeModal = function() {
+  document.getElementById("editModal").style.display = "none";
+};
+
+// 💾 حفظ التعديل
+window.saveEdit = async function() {
+  const name = document.getElementById("editName").value;
+  const desc = document.getElementById("editDesc").value;
+
+  if (!name || !desc) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  await updateDoc(doc(db, "places", currentEditId), {
+    name,
+    description: desc
+  });
+
+  document.getElementById("editSuccess").style.display = "block";
+
+  setTimeout(() => {
+    closeModal();
+    loadPlaces();
+  }, 1200);
+};
+
+loadPlaces();
+</script>
+<!-- Edit Modal -->
+<div id="editModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:9999;">
+  
+  <div style="background:white; padding:30px; border-radius:15px; width:300px; text-align:center;">
+    <h3>Edit Place</h3>
+
+    <input type="text" id="editName" placeholder="Place Name" style="width:100%; margin:10px 0; padding:10px;">
+    
+    <textarea id="editDesc" placeholder="Description" style="width:100%; margin:10px 0; padding:10px;"></textarea>
+
+    <button onclick="saveEdit()" style="background:#8B4513; color:white; border:none; padding:10px 20px; border-radius:8px;">
+      Save
+    </button>
+
+    <br><br>
+
+    <button onclick="closeModal()" style="background:gray; color:white; border:none; padding:8px 15px; border-radius:8px;">
+      Cancel
+    </button>
+
+    <div id="editSuccess" style="display:none; color:green; margin-top:10px; font-weight:bold;">
+      تم التعديل بنجاح ✅
+    </div>
+  </div>
+</div>
 </body>
 </html>
